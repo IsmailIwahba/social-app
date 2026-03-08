@@ -1,0 +1,34 @@
+<div class="mx-auto max-w-7xl px-3 py-3.5 mt-20">
+  <div class="grid gap-4 xl:grid-cols-[240px_minmax(0,1fr)_300px]">
+    <aside
+      app-sidebar-left-component
+      class="hidden h-fit space-y-3 xl:sticky xl:top-[84px] xl:block"
+    ></aside>
+    <section class="space-y-4">
+      <!--  !app-mobile-navigation-component -->
+      <div
+        app-mobile-navigation-component
+        class="rounded-2xl border border-slate-200 bg-white p-2 shadow-sm xl:hidden"
+      ></div>
+      <!-- ! SuggestedFriendsMobileComponent -->
+      <div app-suggested-friends-mobile-component class="space-y-3 xl:hidden"></div>
+      <!-- ! Create Post Component -->
+      <div
+        app-create-post-component
+        class="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm"
+      ></div>
+      <div class="space-y-4">
+        <div
+          class="rounded-2xl border border-slate-200 bg-white p-10 text-center text-slate-500 shadow-sm"
+        >
+          No posts yet. Be the first one to publish.
+        </div>
+      </div>
+    </section>
+    <aside
+      app-discovery-sidebar-component
+      class="hidden h-fit xl:sticky xl:top-21 xl:block"
+    ></aside>
+  </div>
+  <div app-profile class="space-y-4"></div>
+</div>

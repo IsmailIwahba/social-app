@@ -1,0 +1,98 @@
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeUp {
+  animation: fadeUp 0.8s ease-out;
+}
+
+/* إخفاء أيقونة التقويم الافتراضية عشان إحنا حاطين أيقونة FontAwesome أشيك */
+input[type='date']::-webkit-calendar-picker-indicator {
+  background: transparent;
+  bottom: 0;
+  color: transparent;
+  cursor: pointer;
+  height: auto;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: auto;
+}
+
+/* تحسين شكل الـ Placeholder في الـ Date (لو المتصفح بيدعمه) */
+input[type='date']::-webkit-datetime-edit-fields-wrapper {
+  display: flex;
+}
+
+input[type='date']::-webkit-datetime-edit-text,
+input[type='date']::-webkit-datetime-edit-month-field,
+input[type='date']::-webkit-datetime-edit-day-field,
+input[type='date']::-webkit-datetime-edit-year-field {
+  color: #94a3b8; /* لون slate-400 عشان يماشي التصميم */
+}
+
+/* لما المستخدم يبدأ يختار تاريخ، اللون يقلب للأسود بتاعنا */
+input[type='date']:focus::-webkit-datetime-edit-text,
+input[type='date']:not(:placeholder-shown)::-webkit-datetime-edit-month-field,
+input[type='date']:not(:placeholder-shown)::-webkit-datetime-edit-day-field,
+input[type='date']:not(:placeholder-shown)::-webkit-datetime-edit-year-field {
+  color: #1e293b; /* slate-800 */
+}
+/* منع تغيير لون الخلفية عند الـ Autofill */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #f8fafc inset !important; /* نفس لون الـ bg-slate-50 اللي إنت مستخدمه */
+  -webkit-text-fill-color: #1e293b !important; /* لون الخط Slate-800 */
+  transition: background-color 5000s ease-in-out 0s; /* خدعة عشان اللون ميتغيرش أبداً */
+}
+:host {
+  display: block;
+  width: 100%;
+}
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+}
+
+.animate-shake {
+  animation: shake 0.4s ease-in-out;
+}
+/* منع السكرول بار اللحظي في الكونتينر الكبير */
+.login-container {
+  overflow-y: visible !important;
+  overflow-x: hidden !important;
+}
+
+/* أنميشن ظهور الأليرت بـ Slide ناعم */
+@keyframes slideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-slideDown {
+  animation: slideDown 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}

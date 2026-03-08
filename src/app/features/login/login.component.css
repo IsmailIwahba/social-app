@@ -1,0 +1,71 @@
+:host {
+  display: block;
+  width: 100%;
+}
+/* تأثير تفاعل الهيدر عند الكتابة (Visual Feedback) */
+
+/* 1. الخط الأزرق يطول */
+.login-container:has(input:focus) .brand-line {
+  width: 120px;
+  background-color: #1e40af;
+  box-shadow: 0 0 10px rgba(37, 99, 235, 0.4);
+}
+
+/* 2. أيقونة الطيارة "تعدل نفسها" وتكبر */
+.login-container:has(input:focus) .brand-icon i {
+  transform: rotate(0deg) scale(1.15) translateY(-3px);
+  color: #1d4ed8;
+}
+
+/* 3. صندوق الأيقونة ينور شوية */
+.login-container:has(input:focus) .brand-icon {
+  background-color: #dbeafe;
+  border-color: #bfdbfe;
+  box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.1);
+}
+
+/* تنعيم الحركات بشكل عام */
+input,
+.brand-icon,
+.brand-line,
+i {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+/* السنترة المطلقة للأيقونة داخل الديف */
+.brand-icon i {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  transform-origin: center center; /* يضمن الدوران والسكيل من المركز بالظبط */
+}
+
+/* التفاعل عند عمل Focus على أي Input في الكونتينر الكبير */
+.login-container:has(input:focus) .brand-icon {
+  background-color: #dbeafe;
+  border-color: #bfdbfe;
+  /* بنحرك الصندوق كله لفوق سنة عشان الأيقونة تفضل متسنترة جواه */
+  transform: translateY(-4px);
+  box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.15);
+}
+
+.login-container:has(input:focus) .brand-icon i {
+  /* تعديل الزاوية وتكبير الحجم مع الحفاظ على التمركز */
+  transform: rotate(0deg) scale(1.2);
+  color: #1d4ed8;
+}
+
+/* الخط الأزرق اللي تحت الهيدر */
+.login-container:has(input:focus) .brand-line {
+  width: 120px;
+  background-color: #1e40af;
+  box-shadow: 0 0 10px rgba(37, 99, 235, 0.4);
+}
+
+/* تنعيم الحركات */
+.brand-icon,
+.brand-icon i,
+.brand-line {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}

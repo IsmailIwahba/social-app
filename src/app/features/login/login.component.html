@@ -1,0 +1,180 @@
+<div
+  class="login-container w-full overflow-hidden bg-white rounded-3xl shadow-xl animate-fadeUp relative"
+>
+  <header
+    class="relative border-b border-gray-100 bg-slate-50/80 p-8 text-center transition-all duration-500"
+  >
+    <div
+      class="brand-icon mx-auto mb-4 flex size-16 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 shadow-sm border border-blue-100/50 transition-all duration-500 overflow-hidden"
+    >
+      <i
+        class="fa-solid fa-paper-plane text-2xl -rotate-12 transition-all duration-500 leading-none flex items-center justify-center"
+      ></i>
+    </div>
+
+    <h1 class="text-3xl font-black tracking-tight text-slate-900">
+      Route<span class="text-blue-600">Posts</span>
+    </h1>
+    <p class="mt-2 text-sm text-slate-500 font-medium italic">Every Route Has a Story.</p>
+
+    <div
+      class="brand-line absolute -bottom-px left-1/2 h-1 w-16 -translate-x-1/2 rounded-full bg-blue-600 transition-all duration-500 ease-in-out"
+    ></div>
+  </header>
+
+  <div class="p-10 relative">
+    @if (msgError) {
+      <div
+        class="absolute -top-9 left-10 right-10 z-50 flex items-center p-4 text-red-800 border-l-4 border-red-500 bg-white shadow-2xl rounded-r-xl animate-slideDown border"
+      >
+        <div class="shrink-0">
+          <i class="fa-solid fa-circle-xmark text-red-500 text-lg mr-3"></i>
+        </div>
+        <div class="flex-1 text-xs font-bold leading-tight">
+          {{ msgError }}
+        </div>
+        <button
+          (click)="msgError = ''"
+          type="button"
+          class="ml-auto p-1.5 text-red-500 hover:bg-red-50 rounded-lg transition-all"
+        >
+          <i class="fa-solid fa-xmark text-sm"></i>
+        </button>
+      </div>
+    }
+
+    <form [formGroup]="loginForm" (ngSubmit)="submitForm()" class="space-y-5">
+      <div class="relative group">
+        <input
+          formControlName="email"
+          type="email"
+          id="emailaddress"
+          placeholder=" "
+          class="peer w-full pl-11 px-4 pt-6 pb-2 text-sm text-slate-800 bg-slate-50 rounded-xl border border-gray-200 hover:border-blue-300 focus:ring-4 focus:ring-blue-500/10 focus:outline-none transition-all"
+        />
+        <label
+          for="emailaddress"
+          class="absolute left-11 top-2 text-gray-400 text-sm transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-xs peer-focus:text-blue-600"
+        >
+          Email Address
+        </label>
+        <i
+          class="fa-solid fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 peer-focus:text-blue-600 transition-colors"
+        ></i>
+      </div>
+      @if (loginForm.get('email')?.invalid && loginForm.get('email')?.touched) {
+        <div class="flex items-center gap-1 mt-1 ml-2 text-red-500 animate-fadeInUp">
+          <i class="fa-solid fa-circle-exclamation text-2xs"></i>
+          <span class="text-[11px] font-medium">
+            @if (loginForm.get('email')?.hasError('required')) {
+              Email is required.
+            } @else if (loginForm.get('email')?.hasError('email')) {
+              Please enter a valid email address.
+            }
+          </span>
+        </div>
+      }
+
+      <div class="relative group">
+        <input
+          #pass
+          formControlName="password"
+          type="password"
+          id="password"
+          placeholder=" "
+          class="peer w-full pl-11 px-4 pt-6 pb-2 text-sm text-slate-800 bg-slate-50 rounded-xl border border-gray-200 hover:border-blue-300 focus:ring-4 focus:ring-blue-500/10 focus:outline-none transition-all"
+        />
+        <label
+          for="password"
+          class="absolute left-11 top-2 text-gray-400 text-sm transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-xs peer-focus:text-blue-600"
+        >
+          Password
+        </label>
+        <span
+          (click)="showPassword(pass)"
+          class="absolute top-1/2 inset-e-4 cursor-pointer -translate-y-1/2"
+          ><i [class]="pass.type === 'password' ? 'fa-eye-slash' : 'fa-eye'" class="fa"></i
+        ></span>
+        <i
+          class="fa-solid fa-key absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 peer-focus:text-blue-600 transition-colors"
+        ></i>
+      </div>
+      @if (loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
+        <div class="flex items-center gap-1 mt-1 ml-2 text-red-500 animate-fadeInUp">
+          <i class="fa-solid fa-circle-exclamation text-2xs"></i>
+          <span class="text-[11px] font-medium">
+            @if (loginForm.get('password')?.hasError('required')) {
+              Password is required.
+            } @else if (loginForm.get('password')?.hasError('pattern')) {
+              Must contain at least 8 chars, 1 uppercase, 1 lowercase, 1 number, and 1 special
+            }
+          </span>
+        </div>
+      }
+      <button
+        [disabled]="loginForm.invalid"
+        [disabled]="loading"
+        class="w-full rounded-xl py-4 text-base font-bold text-white bg-slate-900 hover:bg-blue-600 disabled:bg-slate-300 disabled:cursor-not-allowed transition-all duration-500 shadow-xl"
+      >
+        Log In
+        @if (loading) {
+          <span class="fas fa-spinner animate-spin"></span>
+        }
+      </button>
+
+      <button
+        type="button"
+        class="mx-auto block text-sm font-semibold text-blue-700 hover:underline"
+      >
+        Forgot password?
+      </button>
+    </form>
+
+    @if (isSuccess) {
+      <div
+        class="fixed top-6 right-6 z-100 flex items-center w-full max-w-xs p-4 bg-white rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.15)] border-l-4 border-green-500 animate-slideInRight"
+      >
+        <div
+          class="inline-flex items-center justify-center shrink-0 w-10 h-10 text-green-500 bg-green-50 rounded-xl"
+        >
+          <i class="fa-solid fa-circle-check text-xl"></i>
+        </div>
+
+        <div class="ms-3">
+          <p class="text-sm font-bold text-slate-900 leading-none">Success!</p>
+          <p class="text-[11px] text-slate-500 mt-1">Your account is ready to go.</p>
+        </div>
+
+        <button
+          type="button"
+          (click)="isSuccess = false"
+          class="ms-auto text-slate-300 hover:text-slate-900 transition-colors"
+        >
+          <i class="fa-solid fa-xmark text-sm"></i>
+        </button>
+
+        <div
+          class="absolute bottom-0 left-0 h-1 bg-green-500/30 w-full rounded-b-2xl overflow-hidden"
+        >
+          <div class="h-full bg-green-500 animate-progressIndicator"></div>
+        </div>
+      </div>
+    }
+    <div class="relative flex items-center justify-center py-4 mt-10">
+      <div class="absolute inset-0 flex items-center">
+        <div class="w-full border-t border-gray-100"></div>
+      </div>
+      <span
+        class="relative z-10 bg-white px-4 text-xs font-extrabold text-gray-400 uppercase tracking-widest"
+        >or</span
+      >
+    </div>
+
+    <button
+      routerLink="/register"
+      class="w-full max-w-xs mx-auto mt-6 flex items-center justify-center rounded-xl py-3 text-base font-bold text-white bg-linear-to-r from-green-600 to-green-700 hover:from-green-500 transition-all shadow-md hover:shadow-xl hover:-translate-y-0.5"
+    >
+      Create new account
+    </button>
+  </div>
+</div>
